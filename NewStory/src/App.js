@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import Fetch from './Fetch';
+import PAGE from './Page';
 import './App.css';
+import { useState, Suspense } from 'react';
 
-function App() {
+export default function App() {
+  const [page, setPage] = useState(PAGE.HOME);
+
+  function handleSetPage(newPage){
+    setPage(newPage);
+    window.history.pushState({page: newPage}, '', newPage);
+  }
+  const getPage = () => {
+    switch (page) {
+      case PAGE.HOME:
+        default:
+        return  <Fetch />
+        
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Suspense fallback={<div>Loading...</div>}>{getPage()}</Suspense>
     </div>
   );
 }
-
-export default App;
