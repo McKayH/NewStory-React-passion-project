@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 
-export default function Fetch(){
+export default function Explore(){
     const [list, setList] = useState([]);
     
     useEffect(()=>{
