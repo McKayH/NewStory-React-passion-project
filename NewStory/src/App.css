@@ -14,3 +14,7 @@ body{
   width: 90%;
   height: 90%;
 }
+.bookAnchors{
+  display: flex;
+  flex-flow: column;
+}

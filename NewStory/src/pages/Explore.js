@@ -1,24 +1,44 @@
 import {useEffect, useState} from 'react'
+import { useSelection, useSelectionDispatch} from '../functionalJS/Context';
+import { fetchBooks } from '../functionalJS/fetching';
+import Box from '@mui/material/Box';
+
+
 
 export default function Explore(){
-    const [list, setList] = useState([]);
+    const select = useSelection(); 
+    const dispatch = useSelectionDispatch();
+    const [page, setPage] = useState(0);
     
     useEffect(()=>{
-        const genres = fetchGenres();
-            genres.then(data => {
-            setList(data.works);
-        });
-
-        async function fetchGenres() {
-                const get = await fetch(`https://openlibrary.org/subjects/love.json`);
-                return get.json();
+        select.forEach((sub)=>{
+            if (sub.checked){
+                const recive = fetchBooks(sub.fetch, page);
+                recive.then(data =>{
+                    dispatch({
+                        type: "next",
+                        id: sub.id,
+                        data: data.works,
+                    });
+                });
             }
-            
-    },[]);
-    const Books = list.map(subject =>{
-        return <li key={subject.key}>{subject.title}</li>
-    }); 
-    return (
-        <ul>{Books}</ul>
-    );
+          });
+        },[page]); 
+        console.log(select);
+    const nextPage = (e =>{
+        setPage(page + 12);
+    });
+  return (
+    <div className='ExplorePage'>
+
+        <Box sx={{ width: '100%', 
+            backgroundColor: '#fff',
+            border: '5px solid #283618',
+            borderRadius: '10px'
+        }}>
+        
+        <button onClick={nextPage}>Next Page</button>
+        </Box>
+    </div>
+  );
 }

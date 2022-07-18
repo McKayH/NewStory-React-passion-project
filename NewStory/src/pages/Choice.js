@@ -1,4 +1,4 @@
-import { useSelection, useSelectionDispatch} from '../Context';
+import { useSelection, useSelectionDispatch} from '../functionalJS/Context';
 import PAGE from '../Page'
 import Paper from '@mui/material/Paper';
 import FormControl from '@mui/material/FormControl';
@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 export default function Choice({changePage}) {
     const selection = useSelection();
     const dispatch = useSelectionDispatch();
-  const handleChange = (event) => {
+    const handleChange = (event) => {
     dispatch({
         type:"checked",
         id: Number(event.target.id),

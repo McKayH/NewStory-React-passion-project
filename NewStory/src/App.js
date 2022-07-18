@@ -1,16 +1,16 @@
 import Explore from './pages/Explore';
 import PAGE from './Page';
 import Choice from './pages/Choice.js'
-import SelectionProvider from './Context';
+import SelectionProvider from './functionalJS/Context';
 import './App.css';
-import { useState, Suspense } from 'react';
+import { useState, Suspense} from 'react';
 
 export default function App() {
   const [page, setPage] = useState(PAGE.HOME);
 
   function ChangePage(newPage){
     setPage(newPage);
-    window.history.pushState({page: newPage}, '', newPage);
+    // window.history.pushState({page: newPage}, '', newPage);
   }
   const getPage = () => {
     switch (page) {
@@ -21,7 +21,7 @@ export default function App() {
           return  <Choice changePage={ChangePage}/>;        
     }
   }
-  return (
+  return(
     <div className="App">
       <SelectionProvider>
         <Suspense fallback={<div>Loading...</div>}>{getPage()}</Suspense>
