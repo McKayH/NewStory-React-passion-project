@@ -1,5 +1,5 @@
 import { useSelection, useSelectionDispatch} from '../functionalJS/Context';
-import PAGE from '../Page'
+import PAGE from '../Page';
 import Paper from '@mui/material/Paper';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';

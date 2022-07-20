@@ -1,15 +1,22 @@
-import { createContext, useContext, useReducer} from "react";
+import { createContext, useContext, useReducer, useState} from "react";
 
 const selectionContext = createContext(null);
 const selectionDispatchContext = createContext(null);
+const bookContext = createContext(null);
+const setBookContext = createContext(null);
 
 
 export default function SelectionProvider({children}){
     const [selection, dispatch] = useReducer(selectionReducer, allSelection);
+    const [book, setBook] = useState('');
     return(
         <selectionContext.Provider value={selection}>
             <selectionDispatchContext.Provider value={dispatch}>
-                {children}
+                <bookContext.Provider value={book}>
+                    <setBookContext.Provider value={setBook}>
+                        {children}
+                    </setBookContext.Provider>
+                </bookContext.Provider>
             </selectionDispatchContext.Provider>
         </selectionContext.Provider>
     );
@@ -20,6 +27,12 @@ export function useSelection(){
 }
 export function useSelectionDispatch(){
     return useContext(selectionDispatchContext);
+}
+export function useBook(){
+    return useContext(bookContext);
+}
+export function useSetBook(){
+    return useContext(setBookContext);
 }
 
 
@@ -37,10 +50,8 @@ function selectionReducer(selection, action){
                 }
             });
         case "next":
-            console.log(selection);
             return(selection.map(item =>{
                 if(item.id === action.id) {
-                    console.log(item);
                     return{...item,
                         data: action.data}; 
                 }
@@ -48,7 +59,7 @@ function selectionReducer(selection, action){
                     return item;
                 }
             }));
-
+        
         default:{
             throw Error("Unknown action: " + action.type);
         }

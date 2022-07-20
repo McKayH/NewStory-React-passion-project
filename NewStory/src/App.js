@@ -1,4 +1,5 @@
 import Explore from './pages/Explore';
+import Info from './pages/Info';
 import PAGE from './Page';
 import Choice from './pages/Choice.js'
 import SelectionProvider from './functionalJS/Context';
@@ -10,12 +11,13 @@ export default function App() {
 
   function ChangePage(newPage){
     setPage(newPage);
-    // window.history.pushState({page: newPage}, '', newPage);
   }
   const getPage = () => {
     switch (page) {
+      case PAGE.INFO:
+        return <Info changePage={ChangePage}/>
       case PAGE.EXPLORE:
-        return <Explore />;
+        return <Explore changePage={ChangePage}/>;
       case PAGE.HOME:
         default:
           return  <Choice changePage={ChangePage}/>;        

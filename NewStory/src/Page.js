@@ -1,6 +1,6 @@
 export default {
     HOME: 'home',
     EXPLORE:'explore',
-    BOOK: 'book',
+    INFO: 'info',
     404: '404'
 };
