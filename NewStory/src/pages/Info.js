@@ -1,5 +1,6 @@
 import {useBook} from '../functionalJS/Context';
 import {fetchTitle } from '../functionalJS/fetching';
+import PAGE from '../Page';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 
@@ -11,7 +12,7 @@ export default function Info({changePage}) {
         publish_year: [],
         publishers: [],
         author_name: [],
-        subject: [],
+        subjects: [],
         cover:''
     }});
 
@@ -19,43 +20,22 @@ export default function Info({changePage}) {
         const item = fetchTitle(book);
         item.then(data =>{
             const setting = data.docs[1];
-            if (setting.publisher && setting.subject) {
+            if (!setting) {
+                changePage(PAGE.FOROFOR)
+            }else{
                 setInfo({
                     details:{
                     title: setting.title,
                     publish_year: setting.first_publish_year,
                     publishers: setting.publisher,
                     author_name: setting.author_name,
-                    subject: setting.subject,
+                    subjects: setting.subject,
                     cover_key:setting.cover_edition_key,
                 }});    
-            }else if(!setting.subject || !setting.publisher){
-                if(!setting.subject) {
-                    setInfo({
-                        details:{
-                        title: setting.title,
-                        publish_year: setting.first_publish_year,
-                        publishers: setting.publisher,
-                        author_name: setting.author_name,
-                        subject:["No Info available"],
-                        cover_key:setting.cover_edition_key,
-                    }});
-                }else{
-                    setInfo({
-                        details:{
-                        title: setting.title,
-                        publish_year: setting.first_publish_year,
-                        publishers:["No Info available"],
-                        author_name: setting.author_name,
-                        subject: setting.subject,
-                        cover_key:setting.cover_edition_key,
-                    }});
-                }
             }
         });
-        
-    },[]);
-    console.log(info.details);
+        console.log('hi');
+    },[book]);
     
     return(<div className='InfoPage'>
 
@@ -74,17 +54,21 @@ export default function Info({changePage}) {
             </div>
             <div className='extraInfo'>
                 <h3>List of publishers</h3>
+                {info.details.publishers ? (
                 <ul className='listStyle'>
-                    {info.details.publishers.map((pub)=>{
-                        return <li>{pub}</li>
+                    {info.details.publishers.map((pub)=>{ 
+                    return <li>{pub}</li>
                     })}
-                </ul>
+                </ul>):(<h3>not available</h3>)}
+                    
+                
                 <h3>List of subjects</h3>
+                {info.details.subjects ? (
                 <ul className='listStyle'>
-                    {info.details.subject.map((sub)=>{
-                        return <li>{sub}</li>
+                    {info.details.subjects.map((sub)=>{ 
+                    return <li>{sub}</li>
                     })}
-                </ul>
+                </ul>):(<h3>not available</h3>)}
             </div>
           
         </Box>

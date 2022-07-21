@@ -7,33 +7,33 @@ import Box from '@mui/material/Box';
 
 
 export default function Explore({changePage}){
-    const select = useSelection(); 
-    const dispatch = useSelectionDispatch();
-    const setTitle = useSetBook();
-    const [page, setPage] = useState(0);
+  const select = useSelection(); 
+  const dispatch = useSelectionDispatch();
+  const setTitle = useSetBook();
+  const [page, setPage] = useState(0);
     
-    useEffect(()=>{
-      select.forEach((sub)=>{
-        if (sub.checked){
-            const recive = fetchBooks(sub.fetch, page);
-            recive.then(data =>{
-              dispatch({
-                  type: "next",
-                  id: sub.id,
-                  data: data.works,
-              });
+  useEffect(()=>{
+    select.forEach((sub)=>{
+      if (sub.checked){
+          const recive = fetchBooks(sub.fetch, page);
+          recive.then(data =>{
+            dispatch({
+                type: "next",
+                id: sub.id,
+                data: data.works,
             });
-        }
-      });
+          });
+      }
+    });
     },[page]); 
 
-    const nextPage = (e =>{
-        setPage(page + 12);
-    });
-    const handleSelect = ((e) =>{
-        setTitle(e.target.title)
-        changePage(PAGE.INFO);
-    });
+  const nextPage = (e =>{
+      setPage(page + 12);
+  });
+  const handleSelect = ((e) =>{
+      setTitle(e.target.title);
+      changePage(PAGE.INFO);
+  });
   return (
     <div className='ExplorePage'>
 
@@ -55,7 +55,7 @@ export default function Explore({changePage}){
               
             }
             else{
-              return;
+              return null;
             }
           })}
         
