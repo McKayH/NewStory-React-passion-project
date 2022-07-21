@@ -55,7 +55,7 @@ export default function Info({changePage}) {
             <div className='extraInfo'>
                 <h3>List of publishers</h3>
                 {info.details.publishers ? (
-                <ul className='listStyle'>
+                <ul className='listsStyle'>
                     {info.details.publishers.map((pub)=>{ 
                     return <li>{pub}</li>
                     })}
@@ -64,13 +64,15 @@ export default function Info({changePage}) {
                 
                 <h3>List of subjects</h3>
                 {info.details.subjects ? (
-                <ul className='listStyle'>
+                <ul className='listsStyle'>
                     {info.details.subjects.map((sub)=>{ 
                     return <li>{sub}</li>
                     })}
                 </ul>):(<h3>not available</h3>)}
             </div>
-          
+          <button onClick={()=>{
+              changePage(PAGE.HOME)
+          }}>Home</button>
         </Box>
     </div>)
 }

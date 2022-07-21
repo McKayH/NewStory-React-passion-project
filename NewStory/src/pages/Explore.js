@@ -42,14 +42,16 @@ export default function Explore({changePage}){
             border: '5px solid #283618',
             borderRadius: '10px'
         }}>
-
+          <button onClick={()=>{
+            changePage(PAGE.HOME)
+          }}>Home</button>
           {select.map(obj => {
             if (obj.checked) {
               return(
                 <div key={obj.id}>
                   <h3>{obj.name}</h3>
                   <ul className='listsStyle'>{obj.data.map(item =>{
-                    return <li id={item.title}><span onClick={handleSelect} title={item.title}>{item.title}</span></li>
+                    return <li id={item.title} className='hoverStyle'><span onClick={handleSelect} title={item.title}>{item.title}</span></li>
                   })}</ul>
                 </div>)
               

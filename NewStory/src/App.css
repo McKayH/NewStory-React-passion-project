@@ -18,3 +18,10 @@ body{
   display: flex;
   flex-flow: column;
 }
+.listsStyle{
+  list-style-type: none;
+}
+.hoverStyle:hover{
+  cursor: pointer;
+  color: brown;
+}
